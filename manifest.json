@@ -1,0 +1,35 @@
+{
+  "description": "Block URL using regular expression",
+  "manifest_version": 2,
+  "name": "Simple Blocker",
+  "version": "0.2.1",
+  "author": "Ery Widyanto",
+
+  "permissions": [
+    "webRequest", 
+    "webRequestBlocking", 
+    "storage",
+    "<all_urls>"
+  ],
+ 
+  "background": {
+    "scripts": ["backgrounds/main.js"]
+  },
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
+  "icons": {
+    "48": "icons/icon.png",
+    "96": "icons/icon@2x.png"
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "simpleblocker@ery.my.id",
+      "strict_min_version": "51.0",
+      "strict_max_version": "53.*"
+    }
+  }
+}
