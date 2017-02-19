@@ -22,6 +22,9 @@ aside {
   padding-top: 4px;
   display: none;
 }
+small {
+  font-style: italic;
+}
 .visible {
   display: block;
 }

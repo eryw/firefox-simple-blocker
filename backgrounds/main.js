@@ -25,7 +25,11 @@ function updateCacheVar(strRegexArray, lmode, ldebug) {
     regexes = [];
     for (let r of strRegexArray) {
         if (r) {
-            regexes.push(new RegExp(r));
+            try {
+              regexes.push(new RegExp(r));
+            } catch(e) {
+              // silent
+            }
         }
     }
 }
