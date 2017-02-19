@@ -1,6 +1,7 @@
 "use strict";
 
-let storage = browser.storage.local.get("simpleBlocker");
+var debug = false;
+var mode = 0;
 
 let regexes = [];
 
@@ -8,7 +9,9 @@ function normalizeData(data) {
     if (!data.simpleBlocker) {
         data = {
             simpleBlocker: {
-                regexes: ''
+                regexes: '',
+                debug: debug,
+                mode: mode
             }
         };
     }
@@ -16,7 +19,9 @@ function normalizeData(data) {
     return data;
 }
 
-function updateRegexes(strRegexArray) {
+function updateCacheVar(strRegexArray, lmode, ldebug) {
+    mode = lmode;
+    debug = ldebug;
     regexes = [];
     for (let r of strRegexArray) {
         if (r) {
@@ -25,39 +30,60 @@ function updateRegexes(strRegexArray) {
     }
 }
 
-function save(stringRegexes) {
-    storage.then((data) => {
+function save(stringRegexes, lmode, ldebug) {
+    browser.storage.local.get("simpleBlocker").then((data) => {
         data = normalizeData(data);
         data.simpleBlocker.regexes = stringRegexes;
+        data.simpleBlocker.mode = lmode;
+        data.simpleBlocker.debug = ldebug;
         browser.storage.local.set(data);
-        updateRegexes(stringRegexes.split(/\r?\n/));
+        updateCacheVar(
+          stringRegexes.split(/\r?\n/),
+          lmode,
+          ldebug
+          );
     });
 }
 
 function retrieve() {
-    return storage.then((data) => {
+    return browser.storage.local.get("simpleBlocker").then((data) => {
         data = normalizeData(data);
-        updateRegexes(data.simpleBlocker.regexes.split(/\r?\n/));
+        updateCacheVar(
+          data.simpleBlocker.regexes.split(/\r?\n/),
+          data.simpleBlocker.mode,
+          data.simpleBlocker.debug
+          );
 
-        return data.simpleBlocker.regexes;
+        return data.simpleBlocker;
     });
 }
 
 function filterRequest(request) {
     let cancel = false;
     for (let regex of regexes) {
-        if (regex.test(request.url)) {
-            cancel = true;
-            break;
+      if ((mode == '0' && regex.test(request.url)) ||
+          (mode == '1' && !regex.test(request.url))
+      ) {
+        if (debug == '1') {
+          console.log("Canceled request: " + request.url);
         }
+        cancel = true;
+        break;
+      }
     }
 
     return { cancel: cancel };
 }
 
-storage.then((data) => {
+browser.storage.local.get("simpleBlocker").then((data) => {
     data = normalizeData(data);
-    updateRegexes(data.simpleBlocker.regexes.split(/\r?\n/))
+    updateCacheVar(
+      data.simpleBlocker.regexes.split(/\r?\n/),
+      data.simpleBlocker.mode,
+      data.simpleBlocker.debug
+      );
+
+    //browser.storage.local.remove("simpleBlocker")
 });
 
 browser.webRequest.onBeforeRequest.addListener(

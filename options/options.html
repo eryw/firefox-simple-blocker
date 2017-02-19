@@ -6,8 +6,26 @@
   <link rel="stylesheet" href="options.css"/>
 <body>
   <form>
+    <fieldset>
+      <legend>Debug</legend>
+      <label>
+        <input type="radio" name="debugging" value="0" checked>No
+      </label>
+      <label>
+        <input type="radio" name="debugging" value="1">Yes
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Filter Mode</legend>
+      <label>
+        <input type="radio" name="mode" value="0" checked>Blacklist
+      </label>
+      <label>
+        <input type="radio" name="mode" value="1">Whitelist
+      </label>
+    </fieldset>
     <textarea id="regexes" rows="10"></textarea>
-    <button id="submit" type="submit">Update Filter</button>
+    <button id="submit" type="submit">Apply</button>
     <aside>Filter has been updated</aside>
   </form>
   <script src="options.js"></script>

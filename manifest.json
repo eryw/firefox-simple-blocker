@@ -2,16 +2,16 @@
   "description": "Block URL using regular expression",
   "manifest_version": 2,
   "name": "Simple Blocker",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "author": "Ery Widyanto",
 
   "permissions": [
-    "webRequest", 
-    "webRequestBlocking", 
+    "webRequest",
+    "webRequestBlocking",
     "storage",
     "<all_urls>"
   ],
- 
+
   "background": {
     "scripts": ["backgrounds/main.js"]
   },
