@@ -2,7 +2,7 @@
   "description": "Block URL using regular expression",
   "manifest_version": 2,
   "name": "Simple Blocker",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "Ery Widyanto",
 
   "permissions": [
@@ -29,7 +29,7 @@
     "gecko": {
       "id": "simpleblocker@ery.my.id",
       "strict_min_version": "51.0",
-      "strict_max_version": "55.*"
+      "strict_max_version": "56.*"
     }
   }
 }

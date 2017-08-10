@@ -26,14 +26,12 @@
     </fieldset>
     <fieldset>
       <legend>Filter List</legend>
-      <textarea id="regexes" rows="10" placeholder="Example: https?://.*\.google(-|s).+\.(com|net)/.*$"></textarea>
+      <textarea id="regexes" rows="10" placeholder="Example: ^https?://(.*\.)?google(-|s|t)[a-z]+(\.[a-z]{2,3})?(\.[a-z]{2,3})/"></textarea>
       <small>Regular expressions separated by newline. For details of Firefox's regular expression see
         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters"
           target="_blank" rel="noopener noreferrer">MDN document</a>
       </small>
     </fieldset>
-    <button id="submit" type="submit">Apply</button>
-    <aside>Filter has been updated</aside>
   </form>
   <script src="options.js"></script>
 </body>

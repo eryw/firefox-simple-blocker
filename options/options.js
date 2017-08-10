@@ -1,6 +1,19 @@
 'use strict'
 
+let tout
 let background = browser.extension.getBackgroundPage()
+
+let autoSave = function (e) {
+  e.stopPropagation()
+  clearTimeout(tout)
+
+  tout = setTimeout(function () {
+    background.save(document.querySelector('#regexes').value,
+      document.querySelector('input[name="mode"]:checked').value,
+      document.querySelector('input[name="debugging"]:checked').value
+    )
+  }, 1000)
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   background.retrieve().then((data) => {
@@ -10,15 +23,5 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 })
 
-document.querySelector('#regexes').addEventListener('keydown', function (e) {
-  document.querySelector('aside').classList.remove('visible')
-})
-
-document.querySelector('#submit').addEventListener('click', function (e) {
-  e.preventDefault()
-  background.save(document.querySelector('#regexes').value,
-    document.querySelector('input[name="mode"]:checked').value,
-    document.querySelector('input[name="debugging"]:checked').value
-  )
-  document.querySelector('aside').classList.add('visible')
-})
+document.querySelectorAll('input').forEach(el => el.addEventListener('change', autoSave))
+document.querySelectorAll('textarea').forEach(el => el.addEventListener('keypress', autoSave))
