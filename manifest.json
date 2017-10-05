@@ -28,8 +28,7 @@
   "applications": {
     "gecko": {
       "id": "simpleblocker@ery.my.id",
-      "strict_min_version": "51.0",
-      "strict_max_version": "56.*"
+      "strict_min_version": "51.0"
     }
   }
 }
