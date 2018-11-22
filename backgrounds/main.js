@@ -63,20 +63,22 @@ function retrieve () { // eslint-disable-line no-unused-vars
 }
 
 function filterRequest (request) {
-  let cancel = false
-  for (let regex of regexes) {
-    if ((mode === '0' && regex.test(request.url)) ||
-      (mode === '1' && !regex.test(request.url))
-    ) {
-      if (debug === '1') {
-        console.log('Canceled request: ' + request.url)
-      }
-      cancel = true
-      break
-    }
-  }
+  let cancel = mode == '1'
+  for (let regex of regexes) {
+    if (mode === '0' && regex.test(request.url)) {
+      cancel = true
+      break
+    }
+    if (mode === '1' && regex.test(request.url)) {
+        cancel = false
+        break
+    }
+  }
 
-  return { cancel: cancel }
+  if (debug === '1' && cancel == true) {
+        console.log('Canceled request: ' + request.url)
+  }
+  return { cancel: cancel }
 }
 
 browser.storage.local.get('simpleBlocker').then((data) => {
