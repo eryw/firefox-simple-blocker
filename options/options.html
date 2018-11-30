@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="options.css"/>
   </head>
-  <link rel="stylesheet" href="options.css"/>
 <body>
   <form>
     <fieldset>
@@ -27,9 +27,12 @@
     <fieldset>
       <legend>Filter List</legend>
       <textarea id="regexes" rows="10" placeholder="Example: ^https?://(.*\.)?google(-|s|t)[a-z]+(\.[a-z]{2,3})?(\.[a-z]{2,3})/"></textarea>
-      <small>Regular expressions separated by newline. For details of Firefox's regular expression see
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters"
-          target="_blank" rel="noopener noreferrer">MDN document</a>
+      <small>
+        Enter one
+        <a href="https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_Expressions#Writing_a_regular_expression_pattern"
+        target="_blank" rel="noopener noreferrer">regular expression pattern</a> per line.
+        You can test and debug your regex pattern online with
+        <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">Regex101</a>.
       </small>
     </fieldset>
   </form>
