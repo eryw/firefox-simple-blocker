@@ -3,6 +3,9 @@
 var debug = false
 var mode = 0
 
+// Sync storage, if available
+var storage = browser.storage.sync || browser.storage.local
+
 let regexes = []
 
 function normalizeData (data) {
@@ -35,12 +38,12 @@ function updateCacheVar (strRegexArray, lmode, ldebug) {
 }
 
 function save (stringRegexes, lmode, ldebug) { // eslint-disable-line no-unused-vars
-  browser.storage.local.get('simpleBlocker').then((data) => {
+  storage.get('simpleBlocker').then((data) => {
     data = normalizeData(data)
     data.simpleBlocker.regexes = stringRegexes
     data.simpleBlocker.mode = lmode
     data.simpleBlocker.debug = ldebug
-    browser.storage.local.set(data)
+    storage.set(data)
     updateCacheVar(
       stringRegexes.split(/\r?\n/),
       lmode,
@@ -50,7 +53,7 @@ function save (stringRegexes, lmode, ldebug) { // eslint-disable-line no-unused-
 }
 
 function retrieve () { // eslint-disable-line no-unused-vars
-  return browser.storage.local.get('simpleBlocker').then((data) => {
+  return storage.get('simpleBlocker').then((data) => {
     data = normalizeData(data)
     updateCacheVar(
       data.simpleBlocker.regexes.split(/\r?\n/),
@@ -81,7 +84,7 @@ function filterRequest (request) {
   return { cancel: cancel }
 }
 
-browser.storage.local.get('simpleBlocker').then((data) => {
+storage.get('simpleBlocker').then((data) => {
   data = normalizeData(data)
   updateCacheVar(
     data.simpleBlocker.regexes.split(/\r?\n/),
