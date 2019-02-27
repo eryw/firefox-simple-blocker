@@ -24,7 +24,7 @@ function updateCacheVar (strRegexArray, lmode, ldebug) {
   debug = ldebug
   regexes = []
   for (let r of strRegexArray) {
-    if (r) {
+    if (r && !(r.trim()).startsWith('//')) { // non-empty lines that aren't comments
       try {
         regexes.push(new RegExp(r))
       } catch (e) {
