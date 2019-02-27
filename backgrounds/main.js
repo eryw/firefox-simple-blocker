@@ -23,12 +23,14 @@ function updateCacheVar (strRegexArray, lmode, ldebug) {
   mode = lmode
   debug = ldebug
   regexes = []
+  line = 0
   for (let r of strRegexArray) {
+    line ++
     if (r) {
       try {
         regexes.push(new RegExp(r))
       } catch (e) {
-        // silent
+        console.debug('SimpleBlocker: Ignored invalid regex on line ' + line + ': ' + r)
       }
     }
   }
