@@ -25,10 +25,10 @@
     "96": "icons/icon@2x.png"
   },
 
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "simpleblocker@ery.my.id",
-      "strict_min_version": "51.0"
+      "strict_min_version": "57.0"
     }
   }
 }
